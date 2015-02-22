@@ -7,7 +7,7 @@
 //
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TweetCellDelegate {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TweetCellDelegate, TweetComposeDelegate {
     var tweets: [Tweet]?
     var refreshControl: UIRefreshControl!
     
@@ -15,9 +15,15 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tweetText: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
+    @IBOutlet weak var composeButton: UIBarButtonItem!
     
     @IBAction func onLogout(sender: AnyObject) {
         User.currentUser!.logout()
+    }
+    
+    @IBAction func onCompose(sender: AnyObject) {
+
+        
     }
     
     override func viewDidLoad() {
@@ -25,11 +31,13 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 125
-        
+        automaticallyAdjustsScrollViewInsets = false
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "doRefresh", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
+        
+        
         doRefresh()
         
 
@@ -63,10 +71,15 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let path = self.tableView.indexPathForSelectedRow()!
-        var vc = segue.destinationViewController as TweetDetailController
-        
-        vc.setTweet(tweets![path.row])
+        if segue.identifier! == "detail-segue" {
+            let path = self.tableView.indexPathForSelectedRow()!
+            var vc = segue.destinationViewController as TweetDetailController
+            vc.setTweet(tweets![path.row])
+        } else if segue.identifier! == "compose-segue" {
+            var vc = segue.destinationViewController as TweetComposeController
+            vc.delegate = self
+        }
+
     }
     
    
@@ -106,6 +119,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
     }
+    
+    func newTweetTweeted(tweet: Tweet) {
+        tweets?.insert(tweet, atIndex: 0)
+        tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+    }
+    
 
 
 }

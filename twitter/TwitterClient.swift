@@ -91,6 +91,24 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         var url = "1.1/favorites/destroy.json?id=\(tweet.id!)"
         simplePost(url, completion: completion)
     }
+    
+    
+    func tweet(text: String, params: NSDictionary, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+
+        let p = params.mutableCopy() as NSMutableDictionary
+        p.setValue(text, forKey: "status")
+        
+        TwitterClient.sharedInstance.POST("1.1/statuses/update.json", parameters: p, success: { (operation:AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            println("tweet: \(response)")
+            var tweet = Tweet(dictionary: response as NSDictionary)
+            
+            completion(tweet: tweet, error: nil)
+            
+            }, failure: { (operation:AFHTTPRequestOperation!, error:NSError!) -> Void in
+                completion(tweet: nil, error: error)
+        })
+    }
+
 
     func openURL(url: NSURL) {
         fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (accessToken: BDBOAuth1Credential!) -> Void in
