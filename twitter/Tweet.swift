@@ -23,13 +23,17 @@ class Tweet {
         self.dictionary = dictionary
         user = User(dict: dictionary["user"] as NSDictionary)
         text = dictionary["text"] as? String
-        createdAtString = dictionary["created_at"] as? String
+
         id = dictionary["id"] as? Int
     
         var formatter = NSDateFormatter()
         formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
-
-        createdAt = formatter.dateFromString(createdAtString!)
+        createdAt = formatter.dateFromString(dictionary["created_at"]! as String)
+        
+        formatter = NSDateFormatter()
+        formatter.dateFormat = "M/dd/yyy h:mm a"
+        createdAtString = formatter.stringFromDate(createdAt!)
+        
         
         let r = dictionary["retweeted"] as? Int
         retweeted =  r != nil && r == 1

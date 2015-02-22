@@ -62,7 +62,14 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    @IBOutlet weak var doLogout: UIButton!
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let path = self.tableView.indexPathForSelectedRow()!
+        var vc = segue.destinationViewController as TweetDetailController
+        
+        vc.setTweet(tweets![path.row])
+    }
+    
+   
     
     func retweet(cell: TweetCell) {
         var tweet = cell.tweet

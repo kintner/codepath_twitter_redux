@@ -54,62 +54,42 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         
         
     }
-   
-    func retweet(tweet: Tweet, completion: (response: NSDictionary?, error: NSError?) -> ()) {
+    
+    func simplePost(url: String, completion: (response: NSDictionary?, error: NSError?) -> ()) {
         
         let success = { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             completion(response: response as? NSDictionary, error: nil)
         }
         
         let failure = { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+            NSLog("error URL: %@,  dets: %@", url, error)
             completion(response: nil, error: error)
         }
-        var url = "1.1/statuses/retweet/\(tweet.id!).json"
+        
         TwitterClient.sharedInstance.POST(url, parameters: nil, success: success, failure: failure)
+        
+    }
+   
+    func retweet(tweet: Tweet, completion: (response: NSDictionary?, error: NSError?) -> ()) {
+        var url = "1.1/statuses/retweet/\(tweet.id!).json"
+        simplePost(url, completion: completion)
     }
     
     
     func undoretweet(tweet: Tweet, completion: (response: NSDictionary?, error: NSError?) -> ()) {
-        
-        let success = { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            completion(response: response as? NSDictionary, error: nil)
-        }
-        
-        let failure = { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-            completion(response: nil, error: error)
-        }
-        
         var url = "1.1/statuses/destroy/\(tweet.id!).json"
-        TwitterClient.sharedInstance.POST(url, parameters: nil, success: success, failure: failure)
+        simplePost(url, completion: completion)
     }
     
     func favorite(tweet: Tweet, completion: (response: NSDictionary?, error: NSError?) -> ()) {
-        
-        let success = { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            completion(response: response as? NSDictionary, error: nil)
-        }
-        
-        let failure = { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-            completion(response: nil, error: error)
-        }
-        
         var url = "1.1/favorites/create.json?id=\(tweet.id!)"
-        TwitterClient.sharedInstance.POST(url, parameters: nil, success: success, failure: failure)
+        simplePost(url, completion: completion)
     }
 
     
     func unfavorite(tweet: Tweet, completion: (response: NSDictionary?, error: NSError?) -> ()) {
-        
-        let success = { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            completion(response: response as? NSDictionary, error: nil)
-        }
-        
-        let failure = { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-            completion(response: nil, error: error)
-        }
-        
         var url = "1.1/favorites/destroy.json?id=\(tweet.id!)"
-        TwitterClient.sharedInstance.POST(url, parameters: nil, success: success, failure: failure)
+        simplePost(url, completion: completion)
     }
 
     func openURL(url: NSURL) {
