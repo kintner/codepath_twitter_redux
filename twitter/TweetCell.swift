@@ -18,9 +18,10 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var replyButton: UIButton!
     @IBOutlet weak var starButton: UIButton!
     
-    var retweeted = false
+    var tweet: Tweet!
     var starred = false
     var replied = false
+    var delegate: TweetCellDelegate?
     
     override func awakeFromNib() {
         var retweetEnabled = UIImage(named: "retweetEnabled")
@@ -34,6 +35,8 @@ class TweetCell: UITableViewCell {
     
     
     func updateFromTweet(tweet: Tweet) {
+        
+        self.tweet = tweet
         self.tweetText.text = tweet.text
         if (tweet.user != nil && tweet.user?.profileImageUrl != nil) {
             var url = NSURL(string: tweet.user!.largeProfileImage())
@@ -44,19 +47,24 @@ class TweetCell: UITableViewCell {
         self.nameLabel.text = tweet.user?.name
         self.handleLabel.text = "@\(tweet.user!.screenname!)"
         
-    }
-    @IBAction func doRetweet(sender: AnyObject) {
-        retweeted = !retweeted
-        retweetButton.selected = retweeted
-
-
+        self.retweetButton.selected = tweet.retweeted!
+        self.starButton.selected = tweet.favorited!
         
     }
     
+    @IBAction func doRetweet(sender: AnyObject) {
+        delegate?.retweet(self)
+    }
+
+    
     @IBAction func doStar(sender: AnyObject) {
-        starred = !starred
-        starButton.selected = starred
+        delegate?.favorite(self)
     }
     @IBAction func doReply(sender: AnyObject) {
     }
+}
+
+protocol TweetCellDelegate {
+    func retweet(cell: TweetCell)
+    func favorite(cell: TweetCell)
 }

@@ -7,7 +7,7 @@
 //
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TweetCellDelegate {
     var tweets: [Tweet]?
     var refreshControl: UIRefreshControl!
     
@@ -15,8 +15,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tweetText: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
+    
     @IBAction func onLogout(sender: AnyObject) {
-        User.currentUser?.logout()
+        User.currentUser!.logout()
     }
     
     override func viewDidLoad() {
@@ -47,6 +48,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("tweet-cell") as TweetCell
+        cell.delegate = self
         cell.updateFromTweet(tweets![indexPath.row])
         return cell
     }
@@ -60,6 +62,43 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-  
+    @IBOutlet weak var doLogout: UIButton!
+    
+    func retweet(cell: TweetCell) {
+        var tweet = cell.tweet
+        
+        if (tweet.retweeted!) {
+            cell.retweetButton.selected = false
+            cell.tweet.undoretweet(handleError)
+        } else {
+            cell.retweetButton.selected = true
+            cell.tweet.undoretweet(handleError)
+        }
+        
+    }
+    
+    func favorite(cell: TweetCell) {
+        var tweet = cell.tweet
+        
+        if (tweet.favorited!) {
+            cell.starButton.selected = false
+            cell.tweet.undofavorite(handleError)
+        } else {
+            cell.starButton.selected = true
+            cell.tweet.favorite(handleError)
+        }
+        
+    }
+    
+    func handleError(error: NSError?) {
+        if error != nil {
+            let alert = UIAlertController(title: "API Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            presentViewController(alert, animated: true, completion: nil)
+            
+        }
+        
+    }
+
 
 }

@@ -14,6 +14,9 @@ class Tweet {
     var createdAtString: String?
     var createdAt: NSDate?
     var dictionary: NSDictionary?
+    var id: Int?
+    var retweeted: Bool?
+    var favorited: Bool?
     
     
     init(dictionary: NSDictionary) {
@@ -21,15 +24,56 @@ class Tweet {
         user = User(dict: dictionary["user"] as NSDictionary)
         text = dictionary["text"] as? String
         createdAtString = dictionary["created_at"] as? String
+        id = dictionary["id"] as? Int
     
         var formatter = NSDateFormatter()
         formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
 
         createdAt = formatter.dateFromString(createdAtString!)
+        
+        let r = dictionary["retweeted"] as? Int
+        retweeted =  r != nil && r == 1
+        
+        let f = dictionary["favorited"] as? Int
+        favorited =  f != nil && f == 1
+
+        
+    }
+
+    func retweet(completion: (error: NSError?) -> ()) {
+        
+        TwitterClient.sharedInstance.retweet(self, completion: { (response, error) -> () in
+            println(response)
+            completion(error: error)
+        })
     }
     
     
+    func undoretweet(completion: (error: NSError?) -> ()) {
+        
+        TwitterClient.sharedInstance.undoretweet(self, completion: { (response, error) -> () in
+            println(response)
+            completion(error: error)
+        })
+    }
     
+    
+    func favorite(completion: (error: NSError?) -> ()) {
+        
+        TwitterClient.sharedInstance.favorite(self, completion: { (response, error) -> () in
+            println(response)
+            completion(error: error)
+        })
+    }
+    
+    
+    func undofavorite(completion: (error: NSError?) -> ()) {
+        
+        TwitterClient.sharedInstance.unfavorite(self, completion: { (response, error) -> () in
+            println(response)
+            completion(error: error)
+        })
+    }
     
     class func tweetsWithArray(array: [NSDictionary]) -> [Tweet] {
         return array.map({Tweet(dictionary: $0)})
