@@ -24,7 +24,7 @@ class User {
     init(dict: NSDictionary) {
         self.dict = dict
         name = dict["name"] as? String
-        screenname = dict["screenname"] as? String
+        screenname = dict["screen_name"] as? String
         profileImageUrl = dict["profile_image_url"] as? String
         tagline = dict["description"] as? String 
     }
@@ -34,6 +34,11 @@ class User {
         User.currentUser = nil
         TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
         NSNotificationCenter.defaultCenter().postNotificationName(userDidLogoutNotifiction, object: self)
+    }
+    
+    func largeProfileImage() -> String {
+        let s = profileImageUrl!.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        return s
     }
     
     

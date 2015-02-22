@@ -29,6 +29,8 @@ class Tweet {
     }
     
     
+    
+    
     class func tweetsWithArray(array: [NSDictionary]) -> [Tweet] {
         return array.map({Tweet(dictionary: $0)})
     }

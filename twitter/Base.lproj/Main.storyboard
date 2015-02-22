@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -58,35 +59,84 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jd8-Zq-lcV" id="2cf-eL-DII">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JX5-sf-3fK">
-                                                    <rect key="frame" x="8" y="9" width="141" height="109"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JX5-sf-3fK">
+                                                    <rect key="frame" x="8" y="8" width="73" height="73"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="73" id="NTY-SO-Hr8"/>
+                                                        <constraint firstAttribute="height" constant="73" id="TJf-oz-Uh3"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="gFP-kN-gzc"/>
                                                         <constraint firstAttribute="width" constant="141" id="sFL-ZW-a63"/>
                                                     </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="gFP-kN-gzc"/>
+                                                            <exclude reference="sFL-ZW-a63"/>
+                                                        </mask>
+                                                    </variation>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="this is some really long text since tweets can be really long so let's see what happens here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPJ-Uk-r7k">
-                                                    <rect key="frame" x="157" y="9" width="691" height="23"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Christopher Kintner" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ep7-GL-tiO">
+                                                    <rect key="frame" x="89" y="8" width="133.5" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="RRU-R9-uEe"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@kintnerc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alN-FB-uhR">
+                                                    <rect key="frame" x="228.5" y="8" width="63" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="17" id="rwR-I0-zsK"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="this is some really long text since tweets can be " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPJ-Uk-r7k">
+                                                    <rect key="frame" x="89" y="26" width="503" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="ep7-GL-tiO" firstAttribute="top" secondItem="2cf-eL-DII" secondAttribute="top" constant="8" id="0BU-OK-YoD"/>
                                                 <constraint firstItem="JX5-sf-3fK" firstAttribute="top" secondItem="2cf-eL-DII" secondAttribute="top" constant="8" id="1aW-ha-8Uu"/>
                                                 <constraint firstItem="pPJ-Uk-r7k" firstAttribute="leading" secondItem="JX5-sf-3fK" secondAttribute="trailing" constant="8" id="2dg-Cb-pGJ"/>
+                                                <constraint firstItem="pPJ-Uk-r7k" firstAttribute="top" secondItem="ep7-GL-tiO" secondAttribute="bottom" id="4ru-xU-2uw"/>
                                                 <constraint firstItem="JX5-sf-3fK" firstAttribute="leading" secondItem="2cf-eL-DII" secondAttribute="leading" constant="8" id="61Z-bq-uUE"/>
                                                 <constraint firstItem="pPJ-Uk-r7k" firstAttribute="leading" secondItem="JX5-sf-3fK" secondAttribute="trailing" constant="8" id="7Px-K5-bzA"/>
+                                                <constraint firstItem="pPJ-Uk-r7k" firstAttribute="leading" secondItem="JX5-sf-3fK" secondAttribute="trailing" constant="8" id="8aG-lA-MAh"/>
                                                 <constraint firstAttribute="trailing" secondItem="pPJ-Uk-r7k" secondAttribute="trailing" constant="8" id="AGq-JJ-fjc"/>
                                                 <constraint firstItem="pPJ-Uk-r7k" firstAttribute="top" secondItem="2cf-eL-DII" secondAttribute="top" constant="9" id="AK4-EI-4Bq"/>
+                                                <constraint firstAttribute="trailing" secondItem="ep7-GL-tiO" secondAttribute="trailing" constant="2" id="Fro-49-PVx"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pPJ-Uk-r7k" secondAttribute="bottom" constant="8" id="HQH-bf-vVE"/>
+                                                <constraint firstItem="ep7-GL-tiO" firstAttribute="leading" secondItem="JX5-sf-3fK" secondAttribute="trailing" constant="8" id="LTq-zc-d1t"/>
+                                                <constraint firstItem="alN-FB-uhR" firstAttribute="leading" secondItem="ep7-GL-tiO" secondAttribute="trailing" constant="6" id="OIw-zj-suE"/>
+                                                <constraint firstItem="JX5-sf-3fK" firstAttribute="top" secondItem="2cf-eL-DII" secondAttribute="top" constant="8" id="WkM-VV-JDQ"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pPJ-Uk-r7k" secondAttribute="bottom" constant="8" id="XVM-ae-QdJ"/>
                                                 <constraint firstAttribute="trailing" secondItem="pPJ-Uk-r7k" secondAttribute="trailing" constant="401" id="Xzn-nW-nWN"/>
                                                 <constraint firstItem="pPJ-Uk-r7k" firstAttribute="top" secondItem="2cf-eL-DII" secondAttribute="top" constant="8" id="awO-qg-dH4"/>
+                                                <constraint firstItem="ep7-GL-tiO" firstAttribute="leading" secondItem="JX5-sf-3fK" secondAttribute="trailing" constant="8" id="dwF-K4-dG0"/>
+                                                <constraint firstAttribute="trailing" secondItem="pPJ-Uk-r7k" secondAttribute="trailing" constant="8" id="eSL-1D-lca"/>
+                                                <constraint firstItem="JX5-sf-3fK" firstAttribute="leading" secondItem="2cf-eL-DII" secondAttribute="leading" constant="8" id="nzv-g4-GQ2"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pPJ-Uk-r7k" secondAttribute="bottom" constant="8" id="rGB-XH-fkm"/>
+                                                <constraint firstItem="alN-FB-uhR" firstAttribute="leading" secondItem="ep7-GL-tiO" secondAttribute="trailing" constant="6" id="wKs-xH-8NA"/>
+                                                <constraint firstItem="alN-FB-uhR" firstAttribute="top" secondItem="2cf-eL-DII" secondAttribute="topMargin" id="xlk-Gh-pCK"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="JX5-sf-3fK" secondAttribute="bottom" constant="8" id="zMY-5F-X6p"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
+                                                    <exclude reference="1aW-ha-8Uu"/>
+                                                    <exclude reference="61Z-bq-uUE"/>
+                                                    <exclude reference="zMY-5F-X6p"/>
+                                                    <exclude reference="Fro-49-PVx"/>
+                                                    <exclude reference="LTq-zc-d1t"/>
                                                     <exclude reference="2dg-Cb-pGJ"/>
+                                                    <exclude reference="7Px-K5-bzA"/>
+                                                    <exclude reference="AGq-JJ-fjc"/>
+                                                    <exclude reference="AK4-EI-4Bq"/>
+                                                    <exclude reference="XVM-ae-QdJ"/>
                                                     <exclude reference="Xzn-nW-nWN"/>
                                                     <exclude reference="awO-qg-dH4"/>
                                                     <exclude reference="rGB-XH-fkm"/>
@@ -95,6 +145,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="avatarImage" destination="JX5-sf-3fK" id="yhZ-m7-eQZ"/>
+                                            <outlet property="handleLabel" destination="alN-FB-uhR" id="tGz-Mk-QRd"/>
+                                            <outlet property="nameLabel" destination="ep7-GL-tiO" id="0QL-6q-M6N"/>
                                             <outlet property="tweetText" destination="pPJ-Uk-r7k" id="Niz-kb-9Ue"/>
                                         </connections>
                                     </tableViewCell>
