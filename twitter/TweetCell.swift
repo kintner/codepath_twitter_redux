@@ -14,6 +14,23 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var tweetText: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var handleLabel: UILabel!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var replyButton: UIButton!
+    @IBOutlet weak var starButton: UIButton!
+    
+    var retweeted = false
+    var starred = false
+    var replied = false
+    
+    override func awakeFromNib() {
+        var retweetEnabled = UIImage(named: "retweetEnabled")
+        retweetButton.setImage(retweetEnabled, forState: UIControlState.Selected)
+
+        var starred = UIImage(named: "favoriteEnabled")
+        starButton.setImage(starred, forState: UIControlState.Selected)
+        
+
+    }
     
     
     func updateFromTweet(tweet: Tweet) {
@@ -27,5 +44,19 @@ class TweetCell: UITableViewCell {
         self.nameLabel.text = tweet.user?.name
         self.handleLabel.text = "@\(tweet.user!.screenname!)"
         
+    }
+    @IBAction func doRetweet(sender: AnyObject) {
+        retweeted = !retweeted
+        retweetButton.selected = retweeted
+
+
+        
+    }
+    
+    @IBAction func doStar(sender: AnyObject) {
+        starred = !starred
+        starButton.selected = starred
+    }
+    @IBAction func doReply(sender: AnyObject) {
     }
 }
