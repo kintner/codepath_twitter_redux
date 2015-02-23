@@ -31,3 +31,7 @@ Time spent: 16 hours
 ![Video Walkthrough](gifs/auth.gif)
 
 ![Video Walkthrough](gifs/detail.gif)
+
+![Video Walkthrough](gifs/actions.gif)
+
+![Video Walkthrough](gifs/layout.gif)
