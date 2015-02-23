@@ -22,8 +22,8 @@ class Tweet {
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
         user = User(dict: dictionary["user"] as NSDictionary)
-        text = dictionary["text"] as? String
-
+        text = dictionary["text"] as String?
+        
         id = dictionary["id"] as? Int
     
         var formatter = NSDateFormatter()

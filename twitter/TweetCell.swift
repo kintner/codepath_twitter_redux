@@ -30,6 +30,8 @@ class TweetCell: UITableViewCell {
         var starred = UIImage(named: "favoriteEnabled")
         starButton.setImage(starred, forState: UIControlState.Selected)
         
+        tweetText.preferredMaxLayoutWidth = 250
+        
 
     }
     

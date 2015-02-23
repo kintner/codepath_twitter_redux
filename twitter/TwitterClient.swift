@@ -93,10 +93,14 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     }
     
     
-    func tweet(text: String, params: NSDictionary, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+    func tweet(text: String, params: NSDictionary, inReplyTo: Tweet?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
 
         let p = params.mutableCopy() as NSMutableDictionary
         p.setValue(text, forKey: "status")
+        
+        if (inReplyTo != nil) {
+            p.setValue(inReplyTo!.id, forKey: "in_reply_to_status_id")
+        }
         
         TwitterClient.sharedInstance.POST("1.1/statuses/update.json", parameters: p, success: { (operation:AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             println("tweet: \(response)")

@@ -9,59 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "twitter/TwitterClient.swift"
-            timestampString = "446339717.995705"
+            filePath = "twitter/TweetsViewController.swift"
+            timestampString = "446343605.327603"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "tweet(_:params:completion:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "twitter.TwitterClient.(tweet (twitter.TwitterClient) -&gt; (Swift.String, params : ObjectiveC.NSDictionary, completion : (tweet : Swift.Optional&lt;twitter.Tweet&gt;, error : Swift.Optional&lt;ObjectiveC.NSError&gt;) -&gt; ()) -&gt; ()).(closure #1)"
-                  moduleName = "twitter"
-                  urlString = "file:///Users/ckintner/Code/codepath/twitter/twitter/TwitterClient.swift"
-                  timestampString = "446339721.631725"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "107"
-                  endingLineNumber = "107"
-                  offsetFromSymbolStart = "782">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "twitter.TwitterClient.(tweet (twitter.TwitterClient) -&gt; (Swift.String, params : ObjectiveC.NSDictionary, completion : (tweet : Swift.Optional&lt;twitter.Tweet&gt;, error : Swift.Optional&lt;ObjectiveC.NSError&gt;) -&gt; ()) -&gt; ()).(closure #2)"
-                  moduleName = "twitter"
-                  urlString = "file:///Users/ckintner/Code/codepath/twitter/twitter/TwitterClient.swift"
-                  timestampString = "446339721.631868"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "107"
-                  endingLineNumber = "107"
-                  offsetFromSymbolStart = "23">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "twitter/TwitterClient.swift"
-            timestampString = "446339719.190902"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "tweet(_:params:completion:)"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "newTweetTweeted(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -72,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "twitter/TweetsViewController.swift"
-            timestampString = "446340283.605728"
+            timestampString = "446343606.375507"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "prepareForSegue(_:sender:)"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "newTweetTweeted(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

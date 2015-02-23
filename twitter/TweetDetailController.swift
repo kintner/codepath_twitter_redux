@@ -44,6 +44,7 @@ class TweetDetailController: UIViewController {
     }
     
     @IBAction func replyTapped(sender: UIButton) {
+    
     }
     
     
@@ -59,11 +60,10 @@ class TweetDetailController: UIViewController {
         
     }
     
-    
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         var retweetEnabled = UIImage(named: "retweetEnabled")
         retweetButton.setImage(retweetEnabled, forState: UIControlState.Selected)
@@ -101,6 +101,11 @@ class TweetDetailController: UIViewController {
         self.favoriteButton.selected = tweet.favorited!
     }
     
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var vc = segue.destinationViewController as TweetComposeController
+        vc.inReplyTo = tweet
+    }
     
     
 

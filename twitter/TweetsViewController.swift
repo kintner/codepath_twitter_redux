@@ -7,7 +7,7 @@
 //
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TweetCellDelegate, TweetComposeDelegate {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TweetCellDelegate {
     var tweets: [Tweet]?
     var refreshControl: UIRefreshControl!
     
@@ -37,6 +37,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl.addTarget(self, action: "doRefresh", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
         
+        
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "newTweetTweeted:", name: "newTweetTweetedNotification", object: nil)
         
         doRefresh()
         
@@ -77,7 +80,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             vc.setTweet(tweets![path.row])
         } else if segue.identifier! == "compose-segue" {
             var vc = segue.destinationViewController as TweetComposeController
-            vc.delegate = self
+        } else if segue.identifier! == "reply-segue" {
+            var vc = segue.destinationViewController as TweetComposeController
+            var button = sender as UIButton
+            vc.inReplyTo = (button.superview!.superview as TweetCell).tweet
         }
 
     }
@@ -120,9 +126,17 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    func newTweetTweeted(tweet: Tweet) {
+    func newTweetTweeted(notification: NSNotification) {
+        
+        var dict = notification.userInfo! as [NSObject:AnyObject]
+        var tweet = dict["tweet"] as Tweet
+        
         tweets?.insert(tweet, atIndex: 0)
-        tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+        var firstRow = NSIndexPath(forRow: 0, inSection: 0)
+        tableView.insertRowsAtIndexPaths([firstRow], withRowAnimation: UITableViewRowAnimation.Automatic)
+        tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+        
+     
     }
     
 
