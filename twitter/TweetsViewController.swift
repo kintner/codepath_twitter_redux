@@ -37,23 +37,26 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         refreshControl.addTarget(self, action: "doRefresh", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
         
-        
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "newTweetTweeted:", name: "newTweetTweetedNotification", object: nil)
         
         doRefresh()
-        
 
-        
     }
     
     func doRefresh() {
         refreshControl.endRefreshing()
         SVProgressHUD.show()
         TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: {(tweets: [Tweet]?, error: NSError?) -> () in
-            self.tweets = tweets
-            self.tableView.reloadData()
             SVProgressHUD.dismiss()
+            if (tweets != nil) {
+                self.tweets = tweets
+                self.tableView.reloadData()
+            }
+            
+            if (error != nil) {
+                self.handleError(error)
+            }
+            
         })
     }
     

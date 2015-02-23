@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var vc = storyboard.instantiateInitialViewController() as UIViewController
        
         window?.rootViewController = vc
-
+        
         
     }
 
