@@ -1,21 +1,22 @@
 //
-//  TwiiterNavViewController.swift
+//  ProfileViewController.swift
 //  twitter
 //
-//  Created by Christopher Kintner on 2/21/15.
+//  Created by Christopher Kintner on 2/28/15.
 //  Copyright (c) 2015 Christopher Kintner. All rights reserved.
 //
 
 import UIKit
 
-class TwiiterNavViewController: UINavigationController {
-    
+class ProfileViewController: UIViewController {
+
+    @IBOutlet weak var bannerImage: UIImageView!
+    @IBOutlet weak var numTweetsLabel: UILabel!
+    @IBOutlet weak var numFollowingLabel: UILabel!
+    @IBOutlet weak var numFollowersLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        
-        
 
         // Do any additional setup after loading the view.
     }
@@ -24,7 +25,6 @@ class TwiiterNavViewController: UINavigationController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
 
     /*

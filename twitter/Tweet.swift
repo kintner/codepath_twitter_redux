@@ -20,12 +20,16 @@ class Tweet {
     
     
     init(dictionary: NSDictionary) {
+        updateFromDict(dictionary)
+    }
+    
+    func updateFromDict(dictionary: NSDictionary) {
         self.dictionary = dictionary
         user = User(dict: dictionary["user"] as NSDictionary)
         text = dictionary["text"] as String?
         
         id = dictionary["id"] as? Int
-    
+        
         var formatter = NSDateFormatter()
         formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
         createdAt = formatter.dateFromString(dictionary["created_at"]! as String)
@@ -40,8 +44,6 @@ class Tweet {
         
         let f = dictionary["favorited"] as? Int
         favorited =  f != nil && f == 1
-
-        
     }
 
     func retweet(completion: (error: NSError?) -> ()) {
@@ -49,6 +51,9 @@ class Tweet {
         TwitterClient.sharedInstance.retweet(self, completion: { (response, error) -> () in
             println(response)
             completion(error: error)
+            if (error == nil) {
+                self.updateFromDict(response as NSDictionary!)
+            }
         })
     }
     
@@ -58,6 +63,9 @@ class Tweet {
         TwitterClient.sharedInstance.undoretweet(self, completion: { (response, error) -> () in
             println(response)
             completion(error: error)
+            if (error == nil) {
+                self.updateFromDict(response as NSDictionary!)
+            }
         })
     }
     
@@ -67,6 +75,9 @@ class Tweet {
         TwitterClient.sharedInstance.favorite(self, completion: { (response, error) -> () in
             println(response)
             completion(error: error)
+            if (error == nil) {
+                self.updateFromDict(response as NSDictionary!)
+            }
         })
     }
     
@@ -76,6 +87,9 @@ class Tweet {
         TwitterClient.sharedInstance.unfavorite(self, completion: { (response, error) -> () in
             println(response)
             completion(error: error)
+            if (error == nil) {
+                self.updateFromDict(response as NSDictionary!)
+            }
         })
     }
     

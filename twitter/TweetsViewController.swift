@@ -11,19 +11,22 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var tweets: [Tweet]?
     var refreshControl: UIRefreshControl!
     
+    var menuDelegate: MenuControllerDelegate?
+    
    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tweetText: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var composeButton: UIBarButtonItem!
     
-    @IBAction func onLogout(sender: AnyObject) {
-        User.currentUser!.logout()
-    }
+
     
     @IBAction func onCompose(sender: AnyObject) {
 
         
+    }
+    @IBAction func onMenuTap(sender: UIButton) {
+        menuDelegate?.toggleLeftPanel()
     }
     
     override func viewDidLoad() {
@@ -101,7 +104,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.tweet.undoretweet(handleError)
         } else {
             cell.retweetButton.selected = true
-            cell.tweet.undoretweet(handleError)
+            cell.tweet.retweet(handleError)
         }
         
     }
@@ -144,4 +147,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
 
 
+}
+
+
+protocol MenuControllerDelegate {
+    func toggleLeftPanel()
 }

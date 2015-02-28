@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if User.currentUser != nil {
             // TODO go to logged in screen
-            var vc = storyboard.instantiateViewControllerWithIdentifier("TwitterNavViewController") as TwiiterNavViewController
+            var vc = storyboard.instantiateViewControllerWithIdentifier("container-view-controller") as ContainerViewController
 
             window?.rootViewController = vc
                        
