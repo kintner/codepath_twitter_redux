@@ -10,6 +10,7 @@ import UIKit
 class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TweetCellDelegate {
     var tweets: [Tweet]?
     var refreshControl: UIRefreshControl!
+    var isMentions = false
     
     var menuDelegate: MenuControllerDelegate?
     
@@ -19,12 +20,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var composeButton: UIBarButtonItem!
     
-
-    
     @IBAction func onCompose(sender: AnyObject) {
 
         
     }
+    
+    
     @IBAction func onMenuTap(sender: UIButton) {
         menuDelegate?.toggleLeftPanel()
     }
@@ -42,6 +43,13 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "newTweetTweeted:", name: "newTweetTweetedNotification", object: nil)
         
+        if isMentions {
+            navigationItem.title = "Mentions"
+        } else {
+            navigationItem.title = "Profile"
+        }
+        
+        
         doRefresh()
 
     }
@@ -49,7 +57,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func doRefresh() {
         refreshControl.endRefreshing()
         SVProgressHUD.show()
-        TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: {(tweets: [Tweet]?, error: NSError?) -> () in
+        
+        var completion = {(tweets: [Tweet]?, error: NSError?) -> () in
             SVProgressHUD.dismiss()
             if (tweets != nil) {
                 self.tweets = tweets
@@ -60,7 +69,14 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.handleError(error)
             }
             
-        })
+        }
+        
+        if isMentions {
+                TwitterClient.sharedInstance.mentions(completion)
+        
+        } else {
+            TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion:completion )
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -95,7 +111,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
    
-    
     func retweet(cell: TweetCell) {
         var tweet = cell.tweet
         
@@ -122,6 +137,17 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    func displayProfile(cell: TweetCell) {
+        var board = UIStoryboard(name: "Main", bundle: nil)
+        var vc = board.instantiateViewControllerWithIdentifier("profile-view-controller") as ProfileViewController
+        vc.user = cell.tweet!.user!
+        vc.viewWillAppear(true)
+        
+        
+        navigationController?.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    
     func handleError(error: NSError?) {
         if error != nil {
             let alert = UIAlertController(title: "API Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
@@ -141,15 +167,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var firstRow = NSIndexPath(forRow: 0, inSection: 0)
         tableView.insertRowsAtIndexPaths([firstRow], withRowAnimation: UITableViewRowAnimation.Automatic)
         tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
-        
-     
-    }
     
-
-
-}
-
-
-protocol MenuControllerDelegate {
-    func toggleLeftPanel()
+    }
 }

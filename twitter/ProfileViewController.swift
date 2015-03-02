@@ -9,24 +9,63 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
-    @IBOutlet weak var bannerImage: UIImageView!
-    @IBOutlet weak var numTweetsLabel: UILabel!
-    @IBOutlet weak var numFollowingLabel: UILabel!
-    @IBOutlet weak var numFollowersLabel: UILabel!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+    var user: User!
+    var isModal = true
+    var delegate: MenuControllerDelegate?
+        
+    @IBOutlet weak private var bannerImage: UIImageView!
+    @IBOutlet weak private var numTweetsLabel: UILabel!
+    @IBOutlet weak private var numFollowingLabel: UILabel!
+    @IBOutlet weak private var numFollowersLabel: UILabel!
+    @IBOutlet weak private var nameLabel: UILabel!
+    @IBOutlet weak private var handleLabel: UILabel!
+    @IBOutlet weak private var navBar: UINavigationBar!
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    func updateForPerson() {
+        var url = NSURL(string: user!.largeProfileImage())
+        bannerImage.setImageWithURL(url)
+        bannerImage.alpha = 0.6
+        
+        nameLabel.text = user.name!
+        var screenName = user.screenname!
+        handleLabel.text = "@\(user.screenname!)"
+        
+        numTweetsLabel.text = "\(user.tweetCount)"
+        numFollowersLabel.text = "\(user.followersCount)"
+        numFollowingLabel.text = "\(user.followingCount)"
+        
+        
+    }
+    
+    @IBAction func doneTapped(sender: UIBarButtonItem) {
+        if isModal {
+            dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            delegate?.toggleLeftPanel()
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if (user != nil) {
+            updateForPerson()
+        }
+        
+        var item = navBar.items[0] as UINavigationItem
+        item.title = "Profile"
+        
+        if !isModal {
+            item.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: UIBarButtonItemStyle.Done, target: self, action: "doneTapped:")
+        }
+    }
 
+    
     /*
     // MARK: - Navigation
 

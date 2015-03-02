@@ -20,13 +20,20 @@ class User {
     var profileImageUrl: String?
     var tagline: String?
     var dict: NSDictionary?
+    var tweetCount: Int!
+    var followersCount: Int!
+    var followingCount: Int!
     
     init(dict: NSDictionary) {
         self.dict = dict
         name = dict["name"] as? String
         screenname = dict["screen_name"] as? String
         profileImageUrl = dict["profile_image_url"] as? String
-        tagline = dict["description"] as? String 
+        tagline = dict["description"] as? String
+        
+        tweetCount = dict["statuses_count"] as Int
+        followersCount = dict["followers_count"] as Int
+        followingCount = dict["friends_count"] as Int
     }
     
     
@@ -40,7 +47,7 @@ class User {
         let s = profileImageUrl!.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         return s
     }
-    
+
     
     class var currentUser: User? {
         get {

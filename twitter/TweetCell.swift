@@ -32,9 +32,16 @@ class TweetCell: UITableViewCell {
         
         tweetText.preferredMaxLayoutWidth = 250
         
-
+        var tapGesture = UITapGestureRecognizer(target: self, action: "avatarTapped:")
+        tapGesture.numberOfTapsRequired = 1
+        avatarImage.userInteractionEnabled = true
+        avatarImage.addGestureRecognizer(tapGesture)
+        
     }
     
+    func avatarTapped(sender: UIGestureRecognizer) {
+        delegate?.displayProfile(self)
+    }
     
     func updateFromTweet(tweet: Tweet) {
         
@@ -69,4 +76,5 @@ class TweetCell: UITableViewCell {
 protocol TweetCellDelegate {
     func retweet(cell: TweetCell)
     func favorite(cell: TweetCell)
+    func displayProfile(cell: TweetCell)
 }
